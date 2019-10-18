@@ -48,7 +48,7 @@ class SignUp extends Component {
    
     <Row>
     <Col md="12">
-      <h5>Langa Learn</h5>
+      <h5 style={{color:'#3A7891'}}>Langa Learn</h5>
     </Col>
     </Row>
         
@@ -60,24 +60,24 @@ class SignUp extends Component {
 
     <Row>
     <Col  md="3">
-        
-        <FaAt onClick={() => this.setState({signIn:'email'})} size={32} />
-        
+
+      <FaAt style={{color:'#3A7891'}} size={54} onClick={() => this.setState({signIn:'email'})} />        
+    
     </Col>
 
       <Col  md="3">
         
-          <FaGooglePlusSquare onClick={() => this.setState({signIn:'google'})} size={32} />
+          <FaGooglePlusSquare style={{color:'#3A7891'}} size={54} onClick={() => this.setState({signIn:'google'})}  />
           
       </Col>
       <Col  md="3">
       
-        <FaTwitterSquare onClick={() => this.setState({signIn:'twitter'})} size={32}/>
+        <FaTwitterSquare style={{color:'#3A7891'}} size={54} onClick={() => this.setState({signIn:'twitter'})} />
         
       </Col>
       <Col  md="3">
      
-        <FaFacebook onClick={() => this.setState({signIn:'facebook'})} size={32} />
+        <FaFacebook style={{color:'#3A7891'}} size={54} onClick={() => this.setState({signIn:'facebook'})} />
        
       </Col>
     </Row>

@@ -10,6 +10,7 @@ import AdminLayout from "layouts/Admin";
 import Login from "views/Login";
 import SignUp from "views/SignUp";
 import SignUpConfirm from "views/SignUpConfirm";
+import ResendPassword from "views/ResendPassword";
 
 const App = () => 
 
@@ -20,6 +21,7 @@ const App = () =>
       <Route path="/sign_up" component={SignUp} />
       <Route path="/test" component={SignUpConfirm} />
       <Route path="/sign_up_confirm" component={SignUpConfirm} />
+      <Route path="/resend_password" component={ResendPassword} />
     </Switch>
  
 export default App

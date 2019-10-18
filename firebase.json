@@ -1,17 +1,10 @@
 {
   "hosting": {
     "public": "build",
-    "target": "langa-learn",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }

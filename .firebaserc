@@ -7,6 +7,16 @@
       "hosting": {
         "paper-flower": [
           "paper-flower"
+        ],
+        "langolearn": [
+          "langolearn"
+        ]
+      }
+    },
+    "langolearn": {
+      "hosting": {
+        "langolearn": [
+          "langolearn"
         ]
       }
     }

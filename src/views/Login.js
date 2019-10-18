@@ -111,10 +111,10 @@ class Login extends Component {
   return (
 
     <div style={{
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundImage: `url(${bkgd})`}} >
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${bkgd})`}} >
 
   <div style={{paddingRight:'30%',paddingLeft:'30%',paddingTop:'10%',paddingBottom:'10%'}} >
 
@@ -128,27 +128,33 @@ class Login extends Component {
     <Row>
     <Col md="12">
     <div style={{marginTop:50}}>
-      <h5>Langa Learn</h5>
+      <h5 style={{color:'#3A7891'}}>Langa Learn</h5>
       </div>
     </Col>
     </Row>
         
     <Row>
     <Col  md="12">
-      <h3>Login</h3>
+      <h3 >Login</h3>
     </Col>
     </Row>
 
 
         <Row>
           <Col  md="4">
-             <FaGooglePlusSquare onClick={() => this.googleSignIn(this.props)} size={32} />
+            <div onClick={() => this.googleSignIn(this.props)}> 
+             <FaGooglePlusSquare size={54} style={{color:'#3A7891'}}   />
+            </div>
           </Col>
           <Col  md="4">
-            <FaTwitterSquare onClick={() => this.twitterSignIn(this.props)} size={32}/>
+          <div onClick={() => this.twitterSignIn(this.props)} > 
+            <FaTwitterSquare size={54} style={{color:'#3A7891'}}  />
+          </div>
           </Col>
           <Col  md="4">
-            <FaFacebook onClick={() => this.facebookSignIn(this.props)} size={32} />
+          <div onClick={() => this.facebookSignIn(this.props)}> 
+            <FaFacebook size={54} style={{color:'#3A7891'}}   />
+          </div>
           </Col>
         </Row>
         <div style={{margin:50}}>
@@ -182,13 +188,23 @@ class Login extends Component {
               </Row>
           </Form>
 
-          <Row>
+      <Row>
         <Col>
-        <div style={{marginTop:30}}>
-        <Link to="/sign_up"> 
-          <h5>Sign Up</h5>  
-        </Link>
-        </div>
+          <div style={{marginTop:30}}>
+            <Link to="/sign_up"> 
+              <h5>Sign Up</h5>  
+            </Link>
+          </div>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <div style={{marginTop:10}}>
+            <Link to="/resend_password"> 
+              Reset Password 
+            </Link>
+          </div>
         </Col>
       </Row>
 

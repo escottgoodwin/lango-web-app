@@ -1,5 +1,6 @@
 import React,{Component} from "react";
 import moment from 'moment'
+
 import {
   Row,
   Col,
@@ -9,7 +10,11 @@ import {
 import { Query } from "react-apollo"
 import { ARTICLE_QUERY } from '../ApolloQueries'
 
+
+
 class Article extends Component{
+
+  
 
   render(){
     const { art_id, lang } = this.props.location.state

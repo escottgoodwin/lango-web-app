@@ -53,7 +53,7 @@ class SignUpTwitter extends Component {
     showError:false,
     errorMessage:'',
     nativeLang:'',
-    nativeLanguage:'Choose',
+    nativeLanguage:'Native Language',
     dropdownOpen:false
   }
 
