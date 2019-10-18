@@ -8,7 +8,8 @@ import {
 import { Query } from "react-apollo"
 import { ARTICLE_REC_QUERY } from '../ApolloQueries'
 
-import LinkRec from './LinkRec'
+import Cluster from './Cluster'
+
 
 class ArtRecs extends Component{
 
@@ -23,7 +24,7 @@ class ArtRecs extends Component{
             if (error) return <div>{JSON.stringify(error)}</div>
 
             const { articleRecommendations } = data
-            console.log(articleRecommendations)
+ 
             return (
 
               <Row >
@@ -31,28 +32,13 @@ class ArtRecs extends Component{
                 { articleRecommendations.length>0 &&
                 <>
                   <div >
-                  
                     <h5> {language} Recommendations</h5>
                   </div>
 
-                
                   {
                     articleRecommendations.map((r,i) => 
-                    <div>
-                    {r.recs.length>0 &&
-                      <div>
-                        <div>
-                          <h5><Flag code={flag} height="24" /> Cluster {i+1}</h5>
-                        </div>
-                        <div>
-                          {r.recs.map(r => 
-                            <LinkRec key={r.art_id} lang={lang} {...r} />
-                          )}
-                        </div>
-                      </div>
-                    }
-                    </div>
-                    )
+                      <Cluster key={i} lang={lang} index={i} flag={flag} {...r}/>
+                     )
                   }
                  
                   </>
