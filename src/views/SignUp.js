@@ -10,6 +10,8 @@ import {
   Col,
 } from "reactstrap";
 
+import fire from '../firebase'
+
 import bkgd from "assets/img/loginmap1.jpg";
 
 import SignUpEmail from '../components/SignUpEmail'
@@ -21,6 +23,17 @@ class SignUp extends Component {
 
   state ={ 
     signIn:'email'
+  }
+
+  componentDidMount(){
+    const { history } = this.props
+    fire.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        history.push(`/admin/dashboard`)
+      } else {
+        
+      }
+    });
   }
 
   render(){

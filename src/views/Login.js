@@ -29,11 +29,9 @@ var facebook = new firebase.auth.FacebookAuthProvider();
 
 var twitter = new firebase.auth.TwitterAuthProvider();
 
-
 const processLogin = (uid,props) => {
   localStorage.setItem('uid',uid)
   axios({
-    // Of course the url should be where your actual GraphQL server is.
     url: process.env.REACT_APP_GRAPHQL_SERVER,
     method: 'post',
     data: {
@@ -41,13 +39,12 @@ const processLogin = (uid,props) => {
         variables: { uid }
     }
   }).then((result) => {
-      console.log(result.data)
-      localStorage.setItem('auth_token',result.data.data.login.token)
+      const authToken = result.data.data.login.token
+      localStorage.setItem('auth_token',authToken)
       props.history.push(`/admin/dashboard`)
   })
 
 }
-
 
 class Login extends Component {
 
@@ -57,13 +54,23 @@ class Login extends Component {
     password:'',
     showPassword: false,
     showError:false,
-    errorMessage:''
+    errorMessage:'',
+  }
+
+  componentDidMount(){
+    const { history } = this.props
+    fire.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        history.push(`/admin/dashboard`)
+      } else {
+        
+      }
+    });
   }
 
   googleSignIn = (props) => {
 
     fire.auth().signInWithPopup(google).then(function(result) {
-      console.log(result.user)
       processLogin(result.user.uid,props)
     }).catch((error) => {
       var errorMessage = error.message;

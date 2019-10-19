@@ -24,7 +24,20 @@ export const SIGNUP_MUTATION = gql`
     }
   }
   `
-
+export const UPDATE_USER_MUTATION = gql`
+mutation UpdateUser($email:String,$name:String!,$native_lang:String!){
+  updateUser(email: $email, name:$name, native_lang: $native_lang){
+    message
+  }
+}
+`
+export const UPDATE_LANGS_MUTATION = gql`
+mutation UpdateLangs($en_rec:Boolean, $de_rec: Boolean, $es_rec:Boolean, $fr_rec: Boolean){
+  updateLangs(en_rec:$en_rec, es_rec:$es_rec, fr_rec:$fr_rec, de_rec: $de_rec){
+    message
+  }
+}
+`
 
 export const SINGLE_LINK_MUTATION = gql`
   mutation SingleLink($transLang:String!,$link:String!){
@@ -40,7 +53,17 @@ export const SINGLE_LINK_MUTATION = gql`
     }
   }
 }
-  `
+`
+
+export const TRANSLATION_MUTATION = gql`
+mutation TranslateSelection($lang:String!, $originalText:String!, $artId:String!){
+  translation(lang:$lang, orginalText:$originalText, artId:$artId){
+    orig_text
+    trans_text
+    art_id
+  }
+}
+`
 
 
 export const ARTICLE_QUERY = gql`
@@ -85,5 +108,20 @@ query ArticleRecommendation($lang:String!){
     art_id
   }
   }
-}`
+}
+`
+export const USER_QUERY = gql`
+query User{
+  user{
+    name
+    native_lang
+    email
+    en_rec
+    fr_rec
+    de_rec
+    es_rec
+    created_at
+  }
+}
+`
 

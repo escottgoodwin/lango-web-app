@@ -1,5 +1,4 @@
 import React,{Component} from "react";
-import Flag from 'react-world-flags'
 import {
   Row,
   Col,

@@ -11,16 +11,16 @@ import {
 
 import bkgd from "assets/img/loginmap1.jpg";
 
-
 function SignUpConfirm() {
 
   return (
 
     <div style={{
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundImage: `url(${bkgd})`}} >
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${bkgd})`}} 
+    >
 
   <div style={{paddingRight:'30%',paddingLeft:'30%',paddingTop:'10%',paddingBottom:'10%'}} >
 

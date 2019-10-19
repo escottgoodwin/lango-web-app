@@ -1,5 +1,6 @@
 import Dashboard from "views/Dashboard";
 import LinkRecs from "views/LinkRecs";
+import UserUpdate from "views/UserUpdate";
 
 var routes = [
   {
@@ -14,6 +15,13 @@ var routes = [
     name: "Link Recommendations",
     icon: "nc-icon nc-bank",
     component: LinkRecs,
+    layout: "/admin"
+  },
+  {
+    path: "/update_user",
+    name: "Update User",
+    icon: "nc-icon nc-bank",
+    component: UserUpdate,
     layout: "/admin"
   },
 ];

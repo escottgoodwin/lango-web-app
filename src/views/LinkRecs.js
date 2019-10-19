@@ -76,7 +76,7 @@ class LinkRecs extends Component{
             >
             {mutation => (
 
-              <Button onClick={mutation} variant="primary" outline >
+              <Button onClick={mutation} color="primary" outline >
                 Submit
               </Button>
 

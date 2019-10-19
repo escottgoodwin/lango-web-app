@@ -1,4 +1,4 @@
-import React,{Component} from "react";
+import React from "react";
 import Flag from 'react-world-flags'
 import {
   Row,
