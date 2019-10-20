@@ -74,7 +74,7 @@ class Header extends React.Component {
   
     const uid = localStorage.getItem('uid')
     
-      axios({
+      const result = axios({
         // Of course the url should be where your actual GraphQL server is.
         url: process.env.REACT_APP_GRAPHQL_SERVER,
         method: 'post',
@@ -83,7 +83,7 @@ class Header extends React.Component {
             variables: { uid }
         }
       }).then((result) => {
-          console.log('signed out')
+          return result
       })
       .catch(function(error) {
         console.log(error)

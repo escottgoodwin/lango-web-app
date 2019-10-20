@@ -36,6 +36,7 @@ function Dashboard(){
       setLanguage('Spanish')
     }
   }
+    const user = JSON.parse(localStorage.getItem('user'))
 
   return(
 
@@ -43,36 +44,36 @@ function Dashboard(){
         <Container >
           <Row fluid='true'>
             <Col lg="3" md="6" sm="3">
-
+              {user.fr_rec && 
               <div onClick={() => switchLang('fr')}>
               
               <h4> <Flag code="fr" height="30" /> French</h4>
               </div>
-            
+              }
             </Col>
             <Col lg="3" md="6" sm="3">
-
+            {user.de_rec && 
               <div onClick={() => switchLang('de')}>
               
                 <h4 > <Flag code="de" height="30" /> German</h4>
               </div>
-
+            }
             </Col>
             <Col lg="3" md="3" sm="3" >
-
+            {user.en_rec && 
               <div onClick={() => switchLang('en')}>
               
                 <h4><Flag code="gb" height="30" /> English</h4>
               </div>
-
+            }
             </Col>
             <Col lg="3" md="6" sm="6" >
-
+            {user.es_rec && 
               <div onClick={() => switchLang('es')}>
               
                 <h4><Flag code="es" height="30" /> Spanish</h4>
               </div>
-
+            }
             </Col>
            
           </Row>

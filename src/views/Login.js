@@ -39,8 +39,10 @@ const processLogin = (uid,props) => {
         variables: { uid }
     }
   }).then((result) => {
-      const authToken = result.data.data.login.token
-      localStorage.setItem('auth_token',authToken)
+      const { token, user } = result.data.data.login
+
+      localStorage.setItem('auth_token',token) 
+      localStorage.setItem('user',JSON.stringify(user))
       props.history.push(`/admin/dashboard`)
   })
 

@@ -4,7 +4,14 @@ export const LOGIN_MUTATION = gql`
 mutation LoginMutation($uid: String!) {
   login(uid:$uid) {
     token
-    message
+    user{
+      name
+      email
+      en_rec
+      es_rec
+      fr_rec
+      de_rec
+    }
   }
 }
 `

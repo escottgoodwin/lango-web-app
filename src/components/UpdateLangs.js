@@ -1,4 +1,5 @@
 import React,{Component} from "react";
+import Flag from 'react-world-flags'
 
 import {
   Row,
@@ -9,6 +10,7 @@ import {
 
 import { Mutation } from "react-apollo"
 import { UPDATE_LANGS_MUTATION, USER_QUERY } from '../ApolloQueries'
+import { userInfo } from "os";
 
 class UpdateLangs extends Component{
 
@@ -49,15 +51,54 @@ class UpdateLangs extends Component{
         </Row>
 
         <Row fluid='true'>
-          <Col md="5">
-            <Button outline color='warning' active={en_rec} onClick={() => this.toggleEn()}>English</Button>
-            <Button outline color='warning' active={fr_rec} onClick={() => this.toggleFr()}>French</Button>
-            <Button outline color='warning' active={de_rec}onClick={() => this.toggleDe()}>German</Button>
-            <Button outline color='warning' active={es_rec} onClick={() => this.toggleEs()}>Spanish</Button>
+        <Col md="2">
 
+          {
+          en_rec && 
+          <Flag code="gb" height="54" />
+          }
+
+          </Col >
+          <Col  md="2">
+          
+          {
+          fr_rec && 
+          
+          <Flag code="fr" height="68" />
+          
+          }
+          
+          </Col >
+          <Col  md="2">
+
+          {
+          de_rec && 
+          <Flag code="de" height="64" />
+          }
+          </Col >
+          <Col  md="2">
+          {
+          es_rec && 
+          <Flag code="es" height="70" />
+          }
           </Col>
+        </Row>
+  
+          <Row fluid='true'>
+            <Col md="2">
+            <Button outline color='warning' onClick={() => this.toggleEn()}>English</Button>
+            </Col >
+            <Col  md="2">
+            <Button outline color='warning' onClick={() => this.toggleFr()}>French</Button>
+            </Col  >
+            <Col md="2">
+            <Button outline color='warning' onClick={() => this.toggleDe()}>German</Button>
+            </Col >
+            <Col md="2">
+            <Button outline color='warning' onClick={() => this.toggleEs()}>Spanish</Button>
+            </Col>
 
-          <Col md="7">
+          <Col md="4">
 
           <Mutation
               mutation={UPDATE_LANGS_MUTATION}
@@ -79,6 +120,8 @@ class UpdateLangs extends Component{
         </Mutation>
           </Col>
         </Row>
+
+        
 
         <Row>
           <Col md="12">
