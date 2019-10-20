@@ -18,7 +18,7 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      backgroundColor: "black",
+      backgroundColor: "green",
       activeColor: "info"
     };
     this.mainPanel = React.createRef();
@@ -34,7 +34,10 @@ class Dashboard extends React.Component {
       ps = new PerfectScrollbar(this.mainPanel.current);
       document.body.classList.toggle("perfect-scrollbar-on");
     }
-
+    const { name } = JSON.parse(localStorage.getItem('user'))
+    this.setState({
+      name
+    })
     fire.auth().onAuthStateChanged(user =>  {
 
       if (user) {
@@ -69,7 +72,7 @@ class Dashboard extends React.Component {
     return (
       <div className="wrapper">
         <Sidebar
-          userName={this.state.userName}
+          userName={this.state.name}
           {...this.props}
           routes={routes}
           bgColor={this.state.backgroundColor}

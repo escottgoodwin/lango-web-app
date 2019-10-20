@@ -16,7 +16,7 @@ const LinkRec = ({lang,art_id,date,title}) =>
                 lang
               }
               }}>
-            <h5 >{title}</h5>
+            <div style={{color:'#3A7891'}}><h5 >{title}</h5></div>
           </Link>
           </div>
         </div>

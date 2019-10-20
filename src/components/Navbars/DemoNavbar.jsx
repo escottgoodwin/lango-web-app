@@ -72,7 +72,7 @@ class Header extends React.Component {
       console.log(error)
     })
   
-    const uid = localStorage.getItem('uid')
+      const uid = localStorage.getItem('uid')
     
       const result = axios({
         // Of course the url should be where your actual GraphQL server is.
@@ -164,7 +164,7 @@ class Header extends React.Component {
 
               <NavItem>
                 <div className="nav-link btn-rotate">
-                  <Button onClick={this.signOut}>Logout</Button>
+                  <Button outline color='primary' onClick={this.signOut}>Logout</Button>
                 </div>
               </NavItem>
             </Nav>

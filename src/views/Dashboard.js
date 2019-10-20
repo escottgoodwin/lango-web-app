@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import Flag from 'react-world-flags'
 
 import {
@@ -9,34 +9,57 @@ import {
 
 import ArtRecs from '../components/ArtRecs'
 
-function Dashboard(){
-  const [lang, setLang ] = useState('fr')
-  const [language, setLanguage ] = useState('French')
-  const [flag, setFlag ] = useState('FR')
+class Dashboard extends Component{
 
-  function switchLang(lang){
+  state={
+    lang:'',
+    language:'',
+    flag:''
+  }
+
+  switchLang(lang){
     if (lang==='fr'){
-      setLang('fr')
-      setFlag('FR')
-      setLanguage('French')
+      this.setState({
+        lang:'fr',
+        language:'French',
+        flag:"FR"
+      })
     }
     if (lang==='de'){
-      setLang('de')
-      setFlag('De')
-      setLanguage('German')
+      this.setState({
+        lang:'de',
+        language:'German',
+        flag:"DE"
+      })
     }
     if (lang==='en'){
-      setLang('en')
-      setFlag('EN')
-      setLanguage('English')
+      this.setState({
+        lang:'en',
+        language:'English',
+        flag:"GB"
+      })
     }
     if (lang==='es'){
-      setLang('es')
-      setFlag('ES')
-      setLanguage('Spanish')
+      this.setState({
+        lang:'es',
+        language:'Spanish',
+        flag:"ES"
+      })
     }
   }
-    const user = JSON.parse(localStorage.getItem('user'))
+
+  componentWillUnmount(){
+    this.setState({
+      lang:'',
+      language:'',
+      flag:''
+    })
+  }
+
+    render(){
+
+      const user = JSON.parse(localStorage.getItem('user'))
+      const { lang, language, flag } = this.state
 
   return(
 
@@ -45,7 +68,7 @@ function Dashboard(){
           <Row fluid='true'>
             <Col lg="3" md="6" sm="3">
               {user.fr_rec && 
-              <div onClick={() => switchLang('fr')}>
+              <div onClick={() => this.switchLang('fr')}>
               
               <h4> <Flag code="fr" height="30" /> French</h4>
               </div>
@@ -53,7 +76,7 @@ function Dashboard(){
             </Col>
             <Col lg="3" md="6" sm="3">
             {user.de_rec && 
-              <div onClick={() => switchLang('de')}>
+              <div onClick={() => this.switchLang('de')}>
               
                 <h4 > <Flag code="de" height="30" /> German</h4>
               </div>
@@ -61,7 +84,7 @@ function Dashboard(){
             </Col>
             <Col lg="3" md="3" sm="3" >
             {user.en_rec && 
-              <div onClick={() => switchLang('en')}>
+              <div onClick={() => this.switchLang('en')}>
               
                 <h4><Flag code="gb" height="30" /> English</h4>
               </div>
@@ -69,7 +92,7 @@ function Dashboard(){
             </Col>
             <Col lg="3" md="6" sm="6" >
             {user.es_rec && 
-              <div onClick={() => switchLang('es')}>
+              <div onClick={() => this.switchLang('es')}>
               
                 <h4><Flag code="es" height="30" /> Spanish</h4>
               </div>
@@ -80,7 +103,10 @@ function Dashboard(){
           <hr />
           <Row fluid='true'>
             <Col md="12" >
-              <ArtRecs lang={lang} flag={flag} language={language}/>
+              {
+                lang.length>0 &&
+                  <ArtRecs lang={lang} flag={flag} language={language}/>
+              }
             </Col>
           </Row>
 
@@ -88,6 +114,7 @@ function Dashboard(){
         </div>
    )
   }
+}
   
 
 export default Dashboard;

@@ -114,7 +114,7 @@ class Article extends Component{
               <Row fluid='true'>
                 <Col lg="12" md="12" sm="12">
                   <div>{moment(date).format('MMMM Do YYYY')}</div>
-                  <div><h3><a href={link} target="_blank" rel="noopener noreferrer">{title}</a></h3></div>
+                  <a href={link} target="_blank" rel="noopener noreferrer"><div style={{color:'#3A7891'}}><h3>{title}</h3></div></a>
                 </Col>
  
               </Row>

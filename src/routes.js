@@ -13,14 +13,14 @@ var routes = [
   {
     path: "/link_recs",
     name: "Link Recommendations",
-    icon: "nc-icon nc-bank",
+    icon: "nc-icon nc-diamond",
     component: LinkRecs,
     layout: "/admin"
   },
   {
     path: "/update_user",
     name: "Update User",
-    icon: "nc-icon nc-bank",
+    icon: "nc-icon nc-circle-10",
     component: UserUpdate,
     layout: "/admin"
   },

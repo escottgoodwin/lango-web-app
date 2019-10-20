@@ -64,6 +64,7 @@ class UpdateUser extends Component{
 
   toggle = () => this.setState({dropdownOpen:!this.state.dropdownOpen})
   onDismiss = () => this.setState({ error: false })
+  onDismissSuccess = () => this.setState({ success: false })
 
   render(){
     const { name, email, native_lang, created_at, error, errormsg, success, successMsg } = this.state
@@ -81,7 +82,7 @@ class UpdateUser extends Component{
             
 
           <Row fluid='true'>
-          <Col lg="8" md="8" sm="8">
+          <Col lg="6" md="6" sm="6">
 
           <Row fluid='true'>
           <Col >
@@ -117,7 +118,7 @@ class UpdateUser extends Component{
 
           </Col>
 
-          <Col lg="4" md="4" sm="4">
+          <Col lg="6" md="6" sm="6">
           
           <FormGroup >
             <label >
@@ -171,7 +172,7 @@ class UpdateUser extends Component{
         <Row>
           <Col md="12">
 
-            <Alert color="success" isOpen={success} toggle={this.onDismiss}>
+            <Alert color="success" isOpen={success} toggle={this.onDismissSuccess}>
               {successMsg}
             </Alert>
 
@@ -195,6 +196,14 @@ class UpdateUser extends Component{
   }
 
   _confirm = async data => {
+
+    const user = JSON.parse(localStorage.getItem('user'))
+    const {name, email, native_lang } = this.state
+    user['name'] = name
+    user['email'] = email
+    user['native_lang'] = native_lang
+
+    localStorage.setItem('user', JSON.stringify(user))
     
     this.setState({success:true,successMsg:'User Info Updated!'})
   }
