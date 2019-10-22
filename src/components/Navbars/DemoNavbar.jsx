@@ -89,6 +89,8 @@ class Header extends React.Component {
         console.log(error)
       })
 
+      console.log(result)
+
     this.props.history.push(`/login`)
   }
   // function that adds color dark/transparent to the navbar on resize (this is for the collapse)

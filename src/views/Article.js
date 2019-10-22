@@ -1,6 +1,5 @@
 import React,{Component} from "react";
 import moment from 'moment'
-import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
 import axios from 'axios'
 
 import {
@@ -95,7 +94,7 @@ class Article extends Component{
   render(){
     const { art_id, lang } = this.props.location.state
     const { paused, rate, playing, originalText } = this.state
-    console.log(originalText)
+
     return(
 
         <div className="content">
@@ -129,29 +128,30 @@ class Article extends Component{
                 { 
                   playing ? 
                   <div>
-                  {paused ? 
-
-                    <FaPlayCircle color='#28a745' size={56} onClick={() => this.resumeReading()} />
+                  {
+                    paused ? 
+                    <i className="nc-icon nc-button-play" onClick={() => this.resumeReading()} style={{color:'#28a745',fontSize:'4em'}}/>
                     :
-                    <FaPauseCircle color='#dc3545' size={56} onClick={() => this.pauseReading()} />
+                    <i className="nc-icon nc-button-pause" onClick={() => this.pauseReading()} style={{color:'#dc3545',fontSize:'4em'}}/>
                   }
                   </div>
                   :
-                  <FaPlayCircle color='#28a745' size={56} onClick={() => this.readArticles(article,lang,rate)} />
-                }
+                  <i className="nc-icon nc-button-play" onClick={() => this.readArticles(article,lang,rate)} style={{color:'#28a745',fontSize:'4em'}}/>
+                 }
               </div>
             </Col>
 
                 <Col lg="9" md="9" sm="9">
                 <div style={{marginBottom:20}}> 
+                
                   <ButtonGroup>
-                    <Button outline  color="warning" onClick={() => this.changeSpeed(article,lang,1)}>1x  </Button>
+                    <Button outline  color="success" onClick={() => this.changeSpeed(article,lang,1)}>1x  </Button>
            
-                    <Button outline  color="warning" onClick={() => this.changeSpeed(article,lang,0.75)}>3/4x</Button>
+                    <Button outline  color="success" onClick={() => this.changeSpeed(article,lang,0.75)}>3/4x</Button>
        
-                    <Button outline  color="warning" onClick={() => this.changeSpeed(article,lang,0.66)}>2/3x</Button>
+                    <Button outline  color="success" onClick={() => this.changeSpeed(article,lang,0.66)}>2/3x</Button>
     
-                    <Button outline  color="warning" onClick={() => this.changeSpeed(article,lang,0.50)}>1/2x</Button>
+                    <Button outline  color="success" onClick={() => this.changeSpeed(article,lang,0.50)}>1/2x</Button>
             
                     </ButtonGroup>
                     </div>

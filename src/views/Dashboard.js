@@ -65,41 +65,55 @@ class Dashboard extends Component{
 
         <div className="content">
         <Container >
-          <Row fluid='true'>
-            <Col lg="3" md="6" sm="3">
-              {user.fr_rec && 
-              <div onClick={() => this.switchLang('fr')}>
+        <Row>
+          <Col>
+          <center>
+          <table style={{width:'100%'}}>
+            <tbody>
+              <tr>
+
+              {user.en_rec && 
+                <td>
+                  <div onClick={() => this.switchLang('en')}>
+              
+              <h4> <Flag code="gb" height="30" /> English</h4>
+              </div>
+                </td>
+                }
+
+                {user.fr_rec && 
+                <td>
+                  <div onClick={() => this.switchLang('fr')}>
               
               <h4> <Flag code="fr" height="30" /> French</h4>
               </div>
-              }
-            </Col>
-            <Col lg="3" md="6" sm="3">
-            {user.de_rec && 
-              <div onClick={() => this.switchLang('de')}>
+                </td>
+                }
+
+              {user.de_rec && 
+                <td>
+                  <div onClick={() => this.switchLang('de')}>
               
-                <h4 > <Flag code="de" height="30" /> German</h4>
+              <h4> <Flag code="de" height="30" /> German</h4>
               </div>
-            }
-            </Col>
-            <Col lg="3" md="3" sm="3" >
-            {user.en_rec && 
-              <div onClick={() => this.switchLang('en')}>
-              
-                <h4><Flag code="gb" height="30" /> English</h4>
-              </div>
-            }
-            </Col>
-            <Col lg="3" md="6" sm="6" >
+                </td>
+                }
+
             {user.es_rec && 
-              <div onClick={() => this.switchLang('es')}>
+                <td>
+                  <div onClick={() => this.switchLang('es')}>
               
-                <h4><Flag code="es" height="30" /> Spanish</h4>
+              <h4> <Flag code="es" height="30" /> Spanish</h4>
               </div>
-            }
-            </Col>
-           
-          </Row>
+                </td>
+                }
+
+              </tr>
+            </tbody>
+          </table>
+          </center>
+          </Col>
+        </Row>
           <hr />
           <Row fluid='true'>
             <Col md="12" >

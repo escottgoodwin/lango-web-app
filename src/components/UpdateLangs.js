@@ -10,7 +10,6 @@ import {
 
 import { Mutation } from "react-apollo"
 import { UPDATE_LANGS_MUTATION, USER_QUERY } from '../ApolloQueries'
-import { userInfo } from "os";
 
 class UpdateLangs extends Component {
 
