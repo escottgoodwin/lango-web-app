@@ -11,7 +11,7 @@ import {
   ButtonGroup
 } from "reactstrap";
 
-import { Query } from "react-apollo"
+import { Query, Mutation } from "react-apollo"
 import { ARTICLE_QUERY, TRANSLATION_MUTATION } from '../ApolloQueries'
 
 function endReading(self){
@@ -26,7 +26,7 @@ class Article extends Component{
     playing:false,
     paused:false,
     rate:1,
-    selObj:''
+    originalText:'',
   }
 
   translateSel = (lang,artId) => {
@@ -49,9 +49,11 @@ class Article extends Component{
           }
       }
     }).then((result) => {
-        console.log(result)
+       
     })
   }
+
+
 
   readArticles = (article,lang,rate) => {
       const voiceLang = `${lang}-${lang.toUpperCase()}`
@@ -92,7 +94,8 @@ class Article extends Component{
     
   render(){
     const { art_id, lang } = this.props.location.state
-    const { paused, rate, playing } = this.state
+    const { paused, rate, playing, originalText } = this.state
+    console.log(originalText)
     return(
 
         <div className="content">
@@ -113,8 +116,9 @@ class Article extends Component{
 
               <Row fluid='true'>
                 <Col lg="12" md="12" sm="12">
-                  <div>{moment(date).format('MMMM Do YYYY')}</div>
-                  <a href={link} target="_blank" rel="noopener noreferrer"><div style={{color:'#3A7891'}}><h3>{title}</h3></div></a>
+                  <div style={{marginTop:20}}>{moment(date).format('MMMM Do YYYY')}</div>
+                  <a href={link} target="_blank" rel="noopener noreferrer">
+                    <div style={{color:'#3A7891'}}><h3>{title}</h3></div></a>
                 </Col>
  
               </Row>
@@ -169,19 +173,50 @@ class Article extends Component{
 
               <Row>
                 <Col lg="10" md="10" sm="10">
-                <div onMouseUp={() => this.translateSel(lang,art_id)}>
-                  <h5>{article}</h5>
-                </div>
+
+                  <div onMouseUp={() => this.setState({originalText:window.getSelection().toString()})}>
+                    <h5>{article}</h5>
+                  </div>
+                
                 </Col>
 
                 <Col lg="2" md="2" sm="2">
+                <div style={{height:50,fontSize:20,color:'#17a2b8'}}>{originalText}</div>
+      
+                <div>
+                <Mutation
+                  mutation={TRANSLATION_MUTATION}
+                  variables={{ 
+                    originalText,
+                    artId: art_id,
+                    lang
+                  }}
+                  onError={error => this._error (error)}
+                  refetchQueries={() => { return [{
+                    query: ARTICLE_QUERY,
+                    variables: { artId: art_id, lang }}]
+                  }}
+                >
+                {mutation => (
 
-                {translations.map(t => 
-                  <>
-                  <div style={{fontSize:18}}>{t.orig_text} - {t.trans_text}</div>
-                  <hr />
-                  </>
+                  <Button outline color="info" onClick={mutation}>
+                    Translate
+                  </Button>
                   )}
+              </Mutation>
+                 
+
+                </div>
+
+                  <div>
+                  {translations.map((t,i) => 
+                    <div key={i}>
+                    <div style={{fontSize:18,color:"#17a2b8"}}>{t.orig_text}</div>
+                    <div style={{fontSize:18,color:"#28a745"}}>{t.trans_text}</div>
+                    <hr />
+                  </div>
+                  )}
+                  </div>
             </Col>
           </Row>
 
@@ -197,6 +232,10 @@ class Article extends Component{
         </div>
     )
   }
+
+  _error = async error => {
+    console.log(error)
+}
 
 }
 
