@@ -96,7 +96,7 @@ class Article extends Component{
     const { paused, rate, playing, originalText } = this.state
 
     return(
-
+      <>
         <div className="content">
 
         <Query query={ARTICLE_QUERY} variables={{ artId: art_id, lang }} >
@@ -174,7 +174,7 @@ class Article extends Component{
               <Row>
                 <Col lg="10" md="10" sm="10">
 
-                  <div onMouseUp={() => this.setState({originalText:window.getSelection().toString()})}>
+                  <div style={{height:600,overflow:'auto'}} onMouseUp={() => this.setState({originalText:window.getSelection().toString()})}>
                     <h5>{article}</h5>
                   </div>
                 
@@ -208,7 +208,7 @@ class Article extends Component{
 
                 </div>
 
-                  <div>
+                  <div style={{height:500,overflow:'auto'}}>
                   {translations.map((t,i) => 
                     <div key={i}>
                     <div style={{fontSize:18,color:"#17a2b8"}}>{t.orig_text}</div>
@@ -230,6 +230,8 @@ class Article extends Component{
           
        
         </div>
+        
+</>
     )
   }
 
