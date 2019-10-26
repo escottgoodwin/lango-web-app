@@ -7,7 +7,7 @@ import {
   Container
 } from "reactstrap";
 
-import ArtRecs from '../components/ArtRecs'
+import ArtRecs from '../components/ArtRecs1'
 
 class Dashboard extends Component{
 

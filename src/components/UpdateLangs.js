@@ -43,7 +43,7 @@ class UpdateLangs extends Component {
     const { en_rec, fr_rec, es_rec, de_rec, error, errormsg, success, successMsg } = this.state
 
     return (
-      <div >
+      <div style={{paddingTop:20}} >
         <Row >
           <Col >
             <h5>Article Recommedations Languages</h5>

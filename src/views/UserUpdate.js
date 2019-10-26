@@ -25,6 +25,7 @@ class UserUpdate extends Component{
             return (                
 
               <div className="content">
+                
                 <Container >
 
                   <UpdateLangs {...data.user} />
@@ -38,7 +39,8 @@ class UserUpdate extends Component{
                   <ResetPassword {...data.user} />
 
               </Container>
-            </div>
+              </div>
+           
 
             )
           }}

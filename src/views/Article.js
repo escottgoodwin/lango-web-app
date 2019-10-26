@@ -158,7 +158,7 @@ class Article extends Component{
                 </Col>
 
                 <Col lg="2" md="2" sm="2">
-                <h5 style={{marginTop:20}}><b>Translations</b></h5>
+                <h5 style={{marginTop:20,color:'#17a2b8'}}><b>Translations</b></h5>
                 <hr /> 
                 </Col>
 
@@ -181,7 +181,9 @@ class Article extends Component{
                 </Col>
 
                 <Col lg="2" md="2" sm="2">
+                <div style={{fontSize:14}}>Select/Highlight Text</div>
                 <div style={{height:50,fontSize:20,color:'#17a2b8'}}>{originalText}</div>
+                
       
                 <div>
                 <Mutation

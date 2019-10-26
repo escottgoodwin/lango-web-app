@@ -117,6 +117,18 @@ query ArticleRecommendation($lang:String!){
   }
 }
 `
+
+export const ARTICLE_REC_ALL_QUERY = gql`
+query ArticleRecommendationAll($lang:String!){
+  articleRecommendationsAll(lang:$lang){
+  	title
+    link
+    date
+    lang
+    art_id
+  }
+}
+`
 export const USER_QUERY = gql`
 query User{
   user{
