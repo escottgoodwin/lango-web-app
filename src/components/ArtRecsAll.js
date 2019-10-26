@@ -1,8 +1,5 @@
 import React,{Component} from "react";
-import {
-  Row,
-  Col,
-} from "reactstrap";
+
 import Flag from 'react-world-flags'
 
 import LinkRec from './LinkRec'
@@ -36,15 +33,8 @@ class ArtRecsAll extends Component{
     return(
           <>
             <div >
-              <Row>
-                <Col md="1">
-                  <Flag code={flag} height="24" />
-                </Col>
-                <Col md="11">
-                  <h5> {language} Recommendations - {articleRecommendationsAll.length}</h5>
-                </Col>
-              </Row>
-              </div>
+              <h5><Flag code={flag} height="24" /> {language} Recommendations - {articleRecommendationsAll.length}</h5>
+            </div>
 
             {articleRecommendationsAll.map(r => 
               <LinkRec key={r.art_id} lang={lang} {...r} />
