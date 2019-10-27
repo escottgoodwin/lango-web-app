@@ -1,13 +1,21 @@
 import Dashboard from "views/Dashboard";
 import LinkRecs from "views/LinkRecs";
 import UserUpdate from "views/UserUpdate";
+import ArtRecDate from "views/ArtRecDate";
 
 var routes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
-    icon: "nc-icon nc-bank",
+    name: "Recommendations",
+    icon: "nc-icon nc-single-copy-04",
     component: Dashboard,
+    layout: "/admin"
+  },
+  {
+    path: "/link_history",
+    name: "History",
+    icon: "nc-icon nc-box",
+    component: ArtRecDate,
     layout: "/admin"
   },
   {

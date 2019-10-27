@@ -7,7 +7,6 @@ import LinkRec from './LinkRec'
 function sortDate(array){
 
   array.sort(function(a, b) {
-    console.log(a.date)
     a = new Date(a.date);
     b = new Date(b.date);
     return a>b ? -1 : a<b ? 1 : 0;
@@ -20,7 +19,6 @@ class ArtRecsAll extends Component{
   }
 
   
-
   componentDidMount(){
     const { articleRecommendationsAll } = this.props
     const artRecsSorted = sortDate(articleRecommendationsAll)
@@ -33,7 +31,7 @@ class ArtRecsAll extends Component{
     return(
           <>
             <div >
-              <h5><Flag code={flag} height="24" /> {language} Recommendations - {articleRecommendationsAll.length}</h5>
+              <h5><Flag code={flag} height="24" /> {language} Recommendations</h5>
             </div>
 
             {articleRecommendationsAll.map(r => 

@@ -14,7 +14,7 @@ class Dashboard extends Component{
   state={
     lang:'',
     language:'',
-    flag:''
+    flag:'',
   }
 
   switchLang(lang){
@@ -78,6 +78,8 @@ class Dashboard extends Component{
               
               <h4> <Flag code="gb" height="30" /> English</h4>
               </div>
+              <div>
+                </div>
                 </td>
                 }
 
@@ -113,8 +115,11 @@ class Dashboard extends Component{
           </table>
           </center>
           </Col>
+
+
         </Row>
           <hr />
+
           <Row fluid='true'>
             <Col md="12" >
               {

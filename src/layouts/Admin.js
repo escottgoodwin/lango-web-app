@@ -11,6 +11,7 @@ import fire from '../firebase'
 
 import routes from "routes.js";
 import Article from "../views/Article";
+import ArtRecDate from "views/ArtRecDate";
 
 var ps;
 
@@ -95,6 +96,12 @@ class Dashboard extends React.Component {
               path='/admin/article'
               component={Article}
               name='Article'
+            />
+
+            <Route
+              path='/admin/article'
+              component={ArtRecDate}
+              name='Recommendation History'
             />
 
           </Switch>

@@ -19,6 +19,7 @@
     "react": "16.8.6",
     "react-apollo": "^3.1.2",
     "react-bootstrap-slider": "^2.2.2",
+    "react-calendar": "^2.19.2",
     "react-chartjs-2": "2.7.6",
     "react-dom": "16.8.6",
     "react-icons": "^3.7.0",

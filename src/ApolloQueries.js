@@ -118,6 +118,18 @@ query ArticleRecommendation($lang:String!){
 }
 `
 
+export const ARTICLE_REC_DATE_QUERY = gql`
+query ArticleRecommendationHistory($lang:String!,$date:String!){
+  articleRecommendationsHistory(lang:$lang,date:$date){
+  	title
+    link
+    date
+    lang
+    art_id
+  }
+}
+`
+
 export const ARTICLE_REC_ALL_QUERY = gql`
 query ArticleRecommendationAll($lang:String!){
   articleRecommendationsAll(lang:$lang){
