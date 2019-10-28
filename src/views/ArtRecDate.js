@@ -19,7 +19,6 @@ class ArtRecDate extends Component{
     fr:false,
     de:false,
     es:false,
-    es:false
   }
 
   onChangeDate = date => {

@@ -2,6 +2,7 @@ import Dashboard from "views/Dashboard";
 import LinkRecs from "views/LinkRecs";
 import UserUpdate from "views/UserUpdate";
 import ArtRecDate from "views/ArtRecDate";
+import Vocab from "views/Vocab";
 
 var routes = [
   {
@@ -23,6 +24,13 @@ var routes = [
     name: "Link Recommendations",
     icon: "nc-icon nc-diamond",
     component: LinkRecs,
+    layout: "/admin"
+  },
+  {
+    path: "/vocab",
+    name: "Vocabulary Test",
+    icon: "nc-icon nc-ruler-pencil",
+    component: Vocab,
     layout: "/admin"
   },
   {

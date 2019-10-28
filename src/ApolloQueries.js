@@ -7,6 +7,7 @@ mutation LoginMutation($uid: String!) {
     user{
       name
       email
+      native_lang
       en_rec
       es_rec
       fr_rec
@@ -125,6 +126,17 @@ query ArticleRecommendationHistory($lang:String!,$date:String!){
     link
     date
     lang
+    art_id
+  }
+}
+`
+
+export const VOCAB_QUERY = gql`
+query TranslationQuery{
+  translations{
+    orig_text
+    trans_text
+
     art_id
   }
 }

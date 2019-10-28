@@ -30,7 +30,7 @@ var facebook = new firebase.auth.FacebookAuthProvider();
 var twitter = new firebase.auth.TwitterAuthProvider();
 
 const processLogin = (uid,props) => {
-  localStorage.setItem('uid',uid)
+  localStorage.setItem('uid', uid)
   axios({
     url: process.env.REACT_APP_GRAPHQL_SERVER,
     method: 'post',
