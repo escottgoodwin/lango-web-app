@@ -29,7 +29,25 @@ class VocabTest extends Component{
     vocab:[],
     language:'',
     native_lang:'',
-    art_id:''
+    native_flag:'',
+    trans_flag:'',
+    art_id:'',
+    trans_lang:''
+  }
+
+  langSwitch = (native_lang) => {
+    if (native_lang === 'en'){
+      return {language:'English',flag_lang:'gb'}
+    }
+    if (native_lang === 'es'){
+      return {language:'Spanish',flag_lang:native_lang}
+    }
+    if (native_lang === 'fr'){
+      return {language:'French',flag_lang:native_lang}
+    }
+    if (native_lang === 'de'){
+      return {language:'German',flag_lang:native_lang}
+    }
   }
 
   componentDidMount(){
@@ -37,39 +55,53 @@ class VocabTest extends Component{
     this.setState({vocab})
     const rnd = getRandomInt(vocab.length)
     const newQuestion = vocab[rnd]
-    this.setState({newQuestion:newQuestion.orig_text, newAnswer:newQuestion.trans_text})
+    console.log(newQuestion)
+    this.setState({newQuestion:newQuestion.orig_text, newAnswer:newQuestion.trans_text,trans_lang: newQuestion.orig_lang})
     const {native_lang} = JSON.parse(localStorage.getItem('user'))
 
-    if (native_lang === 'en'){
-      this.setState({language:'English',native_lang:'gb'})
-    }
-    if (native_lang === 'es'){
-      this.setState({language:'Spanish',native_lang})
-    }
-    if (native_lang === 'fr'){
-      this.setState({language:'French',native_lang})
-    }
-    if (native_lang === 'de'){
-      this.setState({language:'German',native_lang})
-    }
+    const { language, flag_lang } = this.langSwitch(native_lang)
+    const orig_lang = this.langSwitch(newQuestion['orig_lang'])
+
+    this.setState({language, native_flag: flag_lang, native_lang, trans_flag: orig_lang.flag_lang})
+  
 
   }
 
+  resetVocab = (answer) => {
+    const { vocab } = this.state
+    if (vocab.length>1){
+      return vocab.filter(v => v.trans_text!==answer)
+    } else { 
+      return this.props.vocab
+    }
+  }
+
   checkVocab = (question, answer, guess, vocab) => {
-    this.setState({feedback:true,curAnswer:answer,curQuestion:question})
+    this.setState({feedback:true, curAnswer: answer, curQuestion: question})
     if (answer.toLowerCase()===guess.toLowerCase()){
       this.setState({correct:true, feedbackColor:'success'})
     } else {
       this.setState({correct:false, feedbackColor:'danger'})
     }
-    const newVocab = vocab.filter(v => v.trans_text!==answer)
 
+    const newVocab = this.resetVocab(answer)
+    
     this.setState({vocab:newVocab})
     const rnd = getRandomInt(newVocab.length)
     const newQuestion = newVocab[rnd]
 
-    this.setState({newQuestion: newQuestion['orig_text'], newAnswer: newQuestion['trans_text'], art_id: newQuestion['art_id'], guess:''})
-  }
+    const { flag_lang } = this.langSwitch(newQuestion['orig_lang'])
+
+    this.setState(
+      {
+        newQuestion: newQuestion['orig_text'], 
+        newAnswer: newQuestion['trans_text'], 
+        trans_lang:newQuestion['trans_lang'], 
+        trans_flag: flag_lang,
+        art_id: newQuestion['art_id'], 
+        guess:''})
+  } 
+
 
   toggle = () => this.setState({correct:false, feedback:false, answer:''})
 
@@ -87,22 +119,28 @@ class VocabTest extends Component{
       vocab,
       language,
       art_id,
-      native_lang
+      trans_flag,
+      native_flag,
+      trans_lang
       } = this.state
-      const lang = 'fr'
-          
+
+      console.log(vocab.length)
+  
     return(
         <>
 
           <Row >
             <Col >
-              <Flag code="fr" height="48" />  <FaLongArrowAltRight style={{fontSize:56}}/> <Flag code={native_lang} height="48" />
-            </Col>
+            
+              <Flag code={trans_flag} height="48" />  <FaLongArrowAltRight style={{fontSize:56}}/> <Flag code={native_flag} height="48" />
+            
+           </Col>
           </Row>
 
           <Row >
             <Col >
             <h5 style={{marginTop:20,marginBottom:20}}>What does <span style={{color:"#17a2b8"}}> {newQuestion} </span> mean in <span style={{color:"#28a745"}}>{language}</span>?</h5>
+ 
             </Col>
           </Row>
 
@@ -135,7 +173,7 @@ class VocabTest extends Component{
                   pathname: '/admin/article', 
                   state: {
                     art_id: art_id,
-                    lang
+                    lang:trans_lang
                   }
                   }}><div style={{color:'#3A7891'}}>Original Article</div>
               </Link>

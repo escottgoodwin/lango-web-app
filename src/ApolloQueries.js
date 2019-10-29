@@ -136,7 +136,8 @@ query TranslationQuery{
   translations{
     orig_text
     trans_text
-
+    orig_lang
+    trans_lang
     art_id
   }
 }
