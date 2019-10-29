@@ -17,6 +17,7 @@ class ArtRecs extends Component{
     return(
 
       <Query  query={ARTICLE_REC_DATE_QUERY}
+              fetchPolicy={'cache-and-network'}
               variables={{ lang, date }}  >
             {({ loading, error, data }) => {
             if (loading) return <div style={{height:'100vh',backgroundColor:'#F4F3EF'}} > </div>

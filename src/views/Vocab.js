@@ -34,10 +34,10 @@ class Vocab extends Component{
 
                 <Row >
                   <Col >
-                  <div style={{fontSize:18,paddingTop:30,paddingBottom:30}}>Translate foreign words into your native language.</div>
+                  <div style={{fontSize:18,paddingTop:30,paddingBottom:10}}>Translate foreign words into your native language.</div>
                   </Col>
                 </Row>
-
+                <hr/>
                 <Row >
                   <Col >
                     <VocabTest vocab={translations}/>

@@ -25,7 +25,6 @@ class VocabTest extends Component{
     curQuestion:'',
     curAnswer:'',
     correct:false,
-    feedbackColor:'danger',
     vocab:[],
     language:'',
     native_lang:'',
@@ -34,7 +33,8 @@ class VocabTest extends Component{
     art_id:'',
     answer_id:'',
     trans_lang:'',
-    article_lang:''
+    article_lang:'',
+    answereds:[]
   }
 
   langSwitch = (native_lang) => {
@@ -77,12 +77,37 @@ class VocabTest extends Component{
     }
   }
 
-  checkVocab = (question, answer, guess, art_id, trans_lang) => {
+  checkVocab = (question, answer, guess, art_id, trans_lang, answereds) => {
     this.setState({feedback:true, curAnswer: answer, curQuestion: question})
+
     if (answer.toLowerCase()===guess.toLowerCase()){
-      this.setState({correct:true, feedbackColor:'success'})
+      const answered = {ansCorrect:true, answered:question, art_id: art_id, art_lang: trans_lang}
+
+      answereds.unshift(answered)
+      
+      this.setState({correct:true, feedbackColor:'success', answereds})
+
+      setTimeout(
+        function() {
+          this.setState({feedback:false, answer:''})
+        }.bind(this),
+        3000
+      )
+
     } else {
-      this.setState({correct:false, feedbackColor:'danger'})
+
+      const answered = {ansCorrect:false, answered:question, art_id: art_id, art_lang: trans_lang} 
+      answereds.unshift(answered)
+
+      this.setState({correct:false, feedbackColor:'danger', answereds})
+      
+      setTimeout(
+        function() {
+          this.setState({feedback:false, answer:''})
+        }.bind(this),
+        3000
+      )
+
     }
 
     const newVocab = this.resetVocab(answer)
@@ -118,18 +143,20 @@ class VocabTest extends Component{
       curQuestion,
       curAnswer, 
       correct,
-      feedbackColor,
       language,
       art_id,
       trans_flag,
       native_flag,
       trans_lang,
-      article_id,
-      article_lang
+      answereds
       } = this.state
 
     return(
-        <>
+
+      <>
+  
+      <Row >
+            <Col >
 
           <Row >
             <Col >
@@ -147,7 +174,7 @@ class VocabTest extends Component{
           </Row>
 
           <Row fluid='true'>
-          <Col md="6">
+          <Col >
     
             <Input onChange={e => this.setState({ guess: e.target.value })} value={guess} placeholder="Translation" />
           
@@ -156,40 +183,53 @@ class VocabTest extends Component{
        
           <Row fluid='true'>
           <Col >
-            <Button onClick={() => this.checkVocab(newQuestion, newAnswer, guess, art_id, trans_lang)} color="primary" outline >
+            <Button onClick={() => this.checkVocab(newQuestion, newAnswer, guess, art_id, trans_lang,answereds)} color="primary" outline >
               Submit
             </Button>
           </Col>
           </Row>
 
         <Row>
-          <Col md="6">
+          <Col >
 
-              <Alert color={feedbackColor} isOpen={feedback} toggle={this.toggle}>
+              <Alert color={correct ? 'success':'danger'} isOpen={feedback} toggle={this.toggle}>
                 
                  <div style={{fontSize:18}}>Your answer was {correct ? 'correct' : 'incorrect' }.</div>
-                 <div style={{fontSize:18}}>{curQuestion} means {curAnswer}.</div>
-                  
-                <Link 
-                  to={{ 
-                  pathname: '/admin/article', 
-                  state: {
-                    art_id: article_id,
-                    lang: article_lang
-                  }
-                  }}>
-                    <div style={{color:'#3A7891'}}>Original Article</div>
-              </Link>
+                 <div style={{fontSize:18}}><b>{curQuestion}</b> means <b>{curAnswer}</b>.</div>
              
               </Alert>
 
           </Col>
+
         </Row>
-            
-        
-        </>
 
 
+        </Col>
+
+        <Col>
+          <h5>Answers</h5>
+          {
+            answereds.map(a => 
+              <Alert color={a.ansCorrect ? 'success':'danger'}>
+                <div style={{fontSize:18}}>{a.answered}</div>
+                <Link 
+                  to={{ 
+                  pathname: '/admin/article', 
+                  state: {
+                    art_id: a.art_id,
+                    lang: a.art_lang
+                  }
+                  }}>
+                    <div style={{color:'#3A7891'}}>Source Article</div>
+              </Link>
+              </Alert>
+              )
+          }
+        </Col>
+        </Row>
+
+
+      </>
     )
   }
 
