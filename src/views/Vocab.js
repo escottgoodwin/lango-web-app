@@ -18,7 +18,8 @@ class Vocab extends Component{
           
     return(
 
-      <Query query={VOCAB_QUERY} >
+      <Query query={VOCAB_QUERY} 
+            fetchPolicy={"network-only"}>
         {({ loading, error, data }) => {
             if (loading) return <div style={{height:'100vh',backgroundColor:'#F4F3EF'}} > </div>
             if (error) return <div>{JSON.stringify(error)}</div>

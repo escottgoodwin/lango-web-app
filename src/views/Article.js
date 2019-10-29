@@ -13,6 +13,8 @@ import {
 import { Query, Mutation } from "react-apollo"
 import { ARTICLE_QUERY, TRANSLATION_MUTATION } from '../ApolloQueries'
 
+var Highlight = require('react-highlighter');
+
 function endReading(self){
   self.setState({playing:false})
   self.setState({paused:false})
@@ -26,6 +28,7 @@ class Article extends Component{
     paused:false,
     rate:1,
     originalText:'',
+    hoverTrans:''
   }
 
   translateSel = (lang,artId) => {
@@ -51,8 +54,6 @@ class Article extends Component{
        
     })
   }
-
-
 
   readArticles = (article,lang,rate) => {
       const voiceLang = `${lang}-${lang.toUpperCase()}`
@@ -93,7 +94,7 @@ class Article extends Component{
     
   render(){
     const { art_id, lang } = this.props.location.state
-    const { paused, rate, playing, originalText } = this.state
+    const { paused, rate, playing, originalText, hoverTrans } = this.state
 
     return(
       <>
@@ -173,10 +174,16 @@ class Article extends Component{
 
               <Row>
                 <Col lg="10" md="10" sm="10">
-
+                  
                   <div style={{height:600,overflow:'auto'}} onMouseUp={() => this.setState({originalText:window.getSelection().toString()})}>
-                    <h5>{article}</h5>
+                    <h5>
+                    <Highlight search={hoverTrans} matchStyle={{color:'#17a2b8'}}>
+                      {article}
+                    </Highlight>
+                    </h5>
                   </div>
+   
+                  
                 
                 </Col>
 
@@ -212,7 +219,7 @@ class Article extends Component{
 
                   <div style={{height:500,overflow:'auto'}}>
                   {translations.map((t,i) => 
-                    <div key={i}>
+                    <div key={i} onMouseOver={() => this.setState({ hoverTrans: t.orig_text })} onMouseOut={() => this.setState({ hoverTrans: '' })}>
                     <div style={{fontSize:18,color:"#17a2b8"}}>{t.orig_text}</div>
                     <div style={{fontSize:18,color:"#28a745"}}>{t.trans_text}</div>
                     <hr />

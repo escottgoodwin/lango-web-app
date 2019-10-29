@@ -32,7 +32,9 @@ class VocabTest extends Component{
     native_flag:'',
     trans_flag:'',
     art_id:'',
-    trans_lang:''
+    answer_id:'',
+    trans_lang:'',
+    article_lang:''
   }
 
   langSwitch = (native_lang) => {
@@ -55,14 +57,13 @@ class VocabTest extends Component{
     this.setState({vocab})
     const rnd = getRandomInt(vocab.length)
     const newQuestion = vocab[rnd]
-    console.log(newQuestion)
-    this.setState({newQuestion:newQuestion.orig_text, newAnswer:newQuestion.trans_text,trans_lang: newQuestion.orig_lang})
+    this.setState({newQuestion:newQuestion.orig_text, newAnswer:newQuestion.trans_text,trans_lang: newQuestion.orig_lang,art_id:newQuestion.art_id})
     const {native_lang} = JSON.parse(localStorage.getItem('user'))
 
     const { language, flag_lang } = this.langSwitch(native_lang)
     const orig_lang = this.langSwitch(newQuestion['orig_lang'])
 
-    this.setState({language, native_flag: flag_lang, native_lang, trans_flag: orig_lang.flag_lang})
+    this.setState({language, native_flag: flag_lang, native_lang, trans_flag: orig_lang.flag_lang, article_lang: newQuestion.orig_text})
   
 
   }
@@ -76,7 +77,7 @@ class VocabTest extends Component{
     }
   }
 
-  checkVocab = (question, answer, guess, vocab) => {
+  checkVocab = (question, answer, guess, art_id, trans_lang) => {
     this.setState({feedback:true, curAnswer: answer, curQuestion: question})
     if (answer.toLowerCase()===guess.toLowerCase()){
       this.setState({correct:true, feedbackColor:'success'})
@@ -86,20 +87,22 @@ class VocabTest extends Component{
 
     const newVocab = this.resetVocab(answer)
     
-    this.setState({vocab:newVocab})
+    this.setState({vocab: newVocab})
     const rnd = getRandomInt(newVocab.length)
     const newQuestion = newVocab[rnd]
 
     const { flag_lang } = this.langSwitch(newQuestion['orig_lang'])
 
-    this.setState(
-      {
+    this.setState({
         newQuestion: newQuestion['orig_text'], 
         newAnswer: newQuestion['trans_text'], 
-        trans_lang:newQuestion['trans_lang'], 
+        trans_lang: newQuestion['orig_lang'], 
         trans_flag: flag_lang,
         art_id: newQuestion['art_id'], 
-        guess:''})
+        article_id: art_id,
+        article_lang: trans_lang,
+        guess:''
+      })
   } 
 
 
@@ -116,16 +119,15 @@ class VocabTest extends Component{
       curAnswer, 
       correct,
       feedbackColor,
-      vocab,
       language,
       art_id,
       trans_flag,
       native_flag,
-      trans_lang
+      trans_lang,
+      article_id,
+      article_lang
       } = this.state
 
-      console.log(vocab.length)
-  
     return(
         <>
 
@@ -139,7 +141,7 @@ class VocabTest extends Component{
 
           <Row >
             <Col >
-            <h5 style={{marginTop:20,marginBottom:20}}>What does <span style={{color:"#17a2b8"}}> {newQuestion} </span> mean in <span style={{color:"#28a745"}}>{language}</span>?</h5>
+            <h5 style={{marginTop:20,marginBottom:20}}>What does <span style={{color:"#17a2b8"}}> {newQuestion} </span> mean in {language}?</h5>
  
             </Col>
           </Row>
@@ -154,7 +156,7 @@ class VocabTest extends Component{
        
           <Row fluid='true'>
           <Col >
-            <Button onClick={() => this.checkVocab(newQuestion, newAnswer, guess, vocab)} color="primary" outline >
+            <Button onClick={() => this.checkVocab(newQuestion, newAnswer, guess, art_id, trans_lang)} color="primary" outline >
               Submit
             </Button>
           </Col>
@@ -167,18 +169,18 @@ class VocabTest extends Component{
                 
                  <div style={{fontSize:18}}>Your answer was {correct ? 'correct' : 'incorrect' }.</div>
                  <div style={{fontSize:18}}>{curQuestion} means {curAnswer}.</div>
-                
+                  
                 <Link 
                   to={{ 
                   pathname: '/admin/article', 
                   state: {
-                    art_id: art_id,
-                    lang:trans_lang
+                    art_id: article_id,
+                    lang: article_lang
                   }
-                  }}><div style={{color:'#3A7891'}}>Original Article</div>
+                  }}>
+                    <div style={{color:'#3A7891'}}>Original Article</div>
               </Link>
              
-              
               </Alert>
 
           </Col>
