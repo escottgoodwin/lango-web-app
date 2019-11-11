@@ -2,11 +2,20 @@ import React,{Component} from "react";
 
 import Flag from 'react-world-flags'
 
-import LinkRec from './LinkRec'
+import {
+  Row,
+  Col,
+} from "reactstrap";
+import moment from 'moment'
+
+import LinkRecHistory from './LinkRecHistory'
+
+import { Query } from "react-apollo"
+import { ARTICLE_REC_DATE_QUERY } from '../ApolloQueries'
 
 function sortDate(array){
 
-  array.sort(function(a, b) {
+  return array.sort(function(a, b) {
     a = new Date(a.date);
     b = new Date(b.date);
     return a>b ? -1 : a<b ? 1 : 0;
@@ -14,31 +23,45 @@ function sortDate(array){
 }
 
 class ArtRecsAll extends Component{
-  state={
-    articleRecommendationsAll:[]
-  }
-
-  
-  componentDidMount(){
-    const { articleRecommendationsAll } = this.props
-    const artRecsSorted = sortDate(articleRecommendationsAll)
-    this.setState({articleRecommendationsAll})
-  }
 
   render(){
-    const { lang, flag, language } = this.props
-    const { articleRecommendationsAll } = this.state
+    const { lang, flag, language, searchDate } = this.props
     return(
-          <>
-            <div >
-              <h5><Flag code={flag} height="24" /> {language} Recommendations</h5>
-            </div>
+      <Query  query={ARTICLE_REC_DATE_QUERY}
+          fetchPolicy={'cache-and-network'}
+          variables={{ lang, date: searchDate }}  >
+        {({ loading, error, data }) => {
+        if (loading) return <div style={{height:'100vh',backgroundColor:'#F4F3EF'}} > </div>
+        if (error) return <div>{JSON.stringify(error)}</div>
 
-            {articleRecommendationsAll.map(r => 
-              <LinkRec key={r.art_id} lang={lang} {...r} />
-            )}
+        const { articleRecommendationsHistory } = data
+        const artRecsSorted = sortDate(articleRecommendationsHistory)
+        return (
+          <>
+          <Row>
+                <Col>
+                  <h5>{moment(searchDate).format('MMMM Do YYYY')}</h5>
+                </Col>
+              </Row>
+            <Row>
+              <Col>
+              <h4> <Flag code={flag} height="24" /> {articleRecommendationsHistory.length} {language} Recommendations</h4>
+              </Col>
+            </Row>
+
+            <Row >
+              <Col md="12">
+                {artRecsSorted.map(r => 
+                  <LinkRecHistory searchDate={searchDate} key={r.art_id} {...r} />
+                )}             
+              </Col>
+            </Row>
           </>   
+          )
+        }}
+    </Query>
       )
+    
     }
   }
 

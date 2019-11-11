@@ -8,9 +8,9 @@ import {
 } from "reactstrap";
 
 import { Mutation } from "react-apollo"
-import { ADD_PLAYLIST_MUTATION, REMOVE_PLAYLIST_MUTATION, LINK_RECS_QUERY } from '../ApolloQueries'
+import { ADD_PLAYLIST_MUTATION, REMOVE_PLAYLIST_MUTATION, ARTICLE_REC_DATE_QUERY } from '../ApolloQueries'
 
-const LinkRec = ({ lang, art_id, date, title, playlist }) => 
+const LinkRec = ({ lang, art_id, date, title, playlist, searchDate }) => 
 
     <Row>
       <Col md="1">
@@ -21,8 +21,10 @@ const LinkRec = ({ lang, art_id, date, title, playlist }) =>
           variables={{ art_id }}
           refetchQueries={() => {
             return [{
-              query: LINK_RECS_QUERY,
-             }];
+              query: ARTICLE_REC_DATE_QUERY,
+              variables: { lang, date: searchDate },
+              fetchPolicy: 'cache-and-network'
+            }];
           }}
           >
           {mutation => (
@@ -37,8 +39,10 @@ const LinkRec = ({ lang, art_id, date, title, playlist }) =>
           variables={{ art_id }}
           refetchQueries={() => {
             return [{
-              query: LINK_RECS_QUERY,
-             }];
+              query: ARTICLE_REC_DATE_QUERY,
+              variables: { lang, date: searchDate },
+              fetchPolicy: 'cache-and-network'
+            }];
           }}
           >
           {mutation => (

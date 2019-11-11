@@ -66,7 +66,7 @@ onChangeLang = (lang, language, flag) => {
           <Row>
             <Col md="8">
               {lang &&
-                <ArtRecsDate lang={lang} date={searchDate} flag={flag} language={language}/>
+                <ArtRecsDate lang={lang} searchDate={searchDate} flag={flag} language={language}/>
               }
              
           </Col>

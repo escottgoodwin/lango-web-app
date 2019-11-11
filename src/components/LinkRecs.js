@@ -42,7 +42,7 @@ class LinkRecs extends Component{
 
                       {
                         recommendations.map(r => 
-                          <LinkRec key={r.art_id} lang={lang} {...r} />
+                          <LinkRec key={r.art_id} {...r} />
                         )
                       }
 

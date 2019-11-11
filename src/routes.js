@@ -3,6 +3,7 @@ import LinkRecs from "views/LinkRecs";
 import UserUpdate from "views/UserUpdate";
 import ArtRecDate from "views/ArtRecDate";
 import Vocab from "views/Vocab";
+import PlayList from "views/Playlist";
 
 var routes = [
   {
@@ -17,6 +18,13 @@ var routes = [
     name: "History",
     icon: "nc-icon nc-box",
     component: ArtRecDate,
+    layout: "/admin"
+  },
+  {
+    path: "/playlist",
+    name: "Playlist",
+    icon: "nc-icon nc-tap-01",
+    component: PlayList,
     layout: "/admin"
   },
   {

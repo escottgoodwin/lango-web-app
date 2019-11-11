@@ -8,26 +8,26 @@ import {
 } from "reactstrap";
 
 import { Mutation } from "react-apollo"
-import { ADD_PLAYLIST_MUTATION, REMOVE_PLAYLIST_MUTATION, LINK_RECS_QUERY } from '../ApolloQueries'
+import { ADD_PLAYLIST_MUTATION, REMOVE_PLAYLIST_MUTATION, PLAYLIST_QUERY } from '../ApolloQueries'
 
-const LinkRec = ({ lang, art_id, date, title, playlist }) => 
+const LinkRecPlaylist = ({ lang, art_id, date, title, playlist, searchDate }) => 
 
     <Row>
       <Col md="1">
       {playlist ? 
 
         <Mutation
-          mutation={REMOVE_PLAYLIST_MUTATION}
-          variables={{ art_id }}
-          refetchQueries={() => {
-            return [{
-              query: LINK_RECS_QUERY,
-             }];
-          }}
-          >
-          {mutation => (
-            <Button onClick={mutation} size="sm" color="success">PL</Button>
-          )}
+        mutation={REMOVE_PLAYLIST_MUTATION}
+        variables={{ art_id }}
+        refetchQueries={() => {
+          return [{
+            query: PLAYLIST_QUERY    
+          }];
+        }}
+        >
+        {mutation => (
+          <Button onClick={mutation} size="sm" color="danger">Remove</Button>
+        )}
         </Mutation>
          
          :
@@ -37,13 +37,13 @@ const LinkRec = ({ lang, art_id, date, title, playlist }) =>
           variables={{ art_id }}
           refetchQueries={() => {
             return [{
-              query: LINK_RECS_QUERY,
-             }];
+              query: PLAYLIST_QUERY            
+            }];
           }}
-          >
-          {mutation => (
-            <Button onClick={mutation} size="sm" outline color="success">PL</Button>
-          )}
+        >
+        {mutation => (
+           <Button onClick={mutation} size="sm" outline color="success">PL</Button>
+        )}
         </Mutation>
       }
       </Col>
@@ -68,4 +68,4 @@ const LinkRec = ({ lang, art_id, date, title, playlist }) =>
     </Row>
                      
 
-export default LinkRec
+export default LinkRecPlaylist
