@@ -170,6 +170,7 @@ query ArticleRecommendationAll($lang:String!){
     date
     lang
     art_id
+    playlist
   }
 }
 `

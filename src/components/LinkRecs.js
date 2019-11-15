@@ -12,7 +12,7 @@ import LinkRec from './LinkRec'
 class LinkRecs extends Component{
 
   render(){
-    const {lang} = this.props
+
     return(
 
       <Query query={LINK_RECS_QUERY}  >

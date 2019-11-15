@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Flag from 'react-world-flags'
 
 import {
   Row,
@@ -11,6 +10,16 @@ import { Query } from "react-apollo"
 import { PLAYLIST_QUERY } from '../ApolloQueries'
 
 import LinkRecPlaylist from '../components/LinkRecPlaylist'
+
+function sortDate(array){
+
+  return array.sort(function(a, b) {
+    a = new Date(a.date);
+    b = new Date(b.date);
+    return a>b ? -1 : a<b ? 1 : 0;
+  })
+}
+
 
 class PlayList extends Component{
 
@@ -32,6 +41,8 @@ class PlayList extends Component{
                 if (error) return <div>{JSON.stringify(error)}</div>
 
                 const { playList } = data
+
+                const playListSorted = sortDate(playList )
     
                 return (
 
@@ -39,7 +50,7 @@ class PlayList extends Component{
                     <Col md="12">
 
                       {
-                        playList.map((r) => <LinkRecPlaylist key={r.art_id} {...r} />)
+                        playListSorted.map((r) => <LinkRecPlaylist key={r.art_id} {...r} />)
                       }
               
                     </Col>

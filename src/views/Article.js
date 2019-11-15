@@ -18,6 +18,7 @@ var Highlight = require('react-highlighter');
 function endReading(self){
   self.setState({playing:false})
   self.setState({paused:false})
+  // update recs as played
   speechSynthesis.cancel()
 }
 

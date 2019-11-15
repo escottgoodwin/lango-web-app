@@ -17,6 +17,13 @@
       "hosting": {
         "langolearn": [
           "langolearn"
+        ],
+        "langalearnfirebase": [
+          "hosting",
+          "target:apply"
+        ],
+        "langalearn": [
+          "langalearn"
         ]
       }
     }
