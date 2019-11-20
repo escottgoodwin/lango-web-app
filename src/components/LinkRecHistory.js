@@ -11,9 +11,9 @@ import { Mutation } from "react-apollo"
 import { ADD_PLAYLIST_MUTATION, REMOVE_PLAYLIST_MUTATION, ARTICLE_REC_DATE_QUERY } from '../ApolloQueries'
 
 const LinkRecHistory = ({ lang, art_id, date, title, playlist, searchDate }) => 
-
+  <>
     <Row>
-      <Col md="1">
+      <Col style={{alignItems:'start'}} md="1">
       {playlist ? 
 
         <Mutation
@@ -64,12 +64,13 @@ const LinkRecHistory = ({ lang, art_id, date, title, playlist, searchDate }) =>
                 lang
               }
               }}>
-            <div style={{color:'#3A7891'}}><h5 >{title}</h5></div>
+            <div style={{color:'#3A7891',fontSize:18}}>{title}</div>
           </Link>
           </div>
         </div>
         </Col>
     </Row>
-                     
+    <hr />
+    </>                 
 
 export default LinkRecHistory

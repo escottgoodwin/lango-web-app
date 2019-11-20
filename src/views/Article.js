@@ -1,6 +1,8 @@
 import React,{Component} from "react";
 import moment from 'moment'
 import axios from 'axios'
+import Flag from 'react-world-flags'
+import { Link } from 'react-router-dom'
 
 import {
   Row,
@@ -29,15 +31,51 @@ class Article extends Component{
     paused:false,
     rate:1,
     originalText:'',
-    hoverTrans:''
+    hoverTrans:'',
+    flag:''
   }
 
-  translateSel = (lang,artId) => {
+  switchLang = lang => {
+    if (lang==='fr'){
+      this.setState({
+        lang:'fr',
+        language:'French',
+        flag:"FR"
+      })
+    }
+    if (lang==='de'){
+      this.setState({
+        lang:'de',
+        language:'German',
+        flag:"DE"
+      })
+    }
+    if (lang==='en'){
+      this.setState({
+        lang:'en',
+        language:'English',
+        flag:"GB"
+      })
+    }
+    if (lang==='es'){
+      this.setState({
+        lang:'es',
+        language:'Spanish',
+        flag:"ES"
+      })
+    }
+  }
+
+  componentDidMount(){
+    const { lang } = this.props.location.state
+    this.switchLang(lang)
+  }
+
+  translateSel = async (lang,artId) => {
     const selecttext = window.getSelection().toString()
-    console.log(`Selected text: ${selecttext}`);
+
     const token = localStorage.getItem('auth_token')
-    axios({
-      // Of course the url should be where your actual GraphQL server is.
+    await axios({
       url: process.env.REACT_APP_GRAPHQL_SERVER,
       method: 'post',
       headers: {
@@ -51,8 +89,6 @@ class Article extends Component{
             lang
           }
       }
-    }).then((result) => {
-       
     })
   }
 
@@ -95,7 +131,7 @@ class Article extends Component{
     
   render(){
     const { art_id, lang } = this.props.location.state
-    const { paused, rate, playing, originalText, hoverTrans } = this.state
+    const { flag, paused, rate, playing, originalText, hoverTrans } = this.state
 
     return(
       <>
@@ -115,11 +151,39 @@ class Article extends Component{
         <Row >
           <Col md="12" >
 
-              <Row fluid='true'>
+          <Row fluid='true'>
                 <Col lg="12" md="12" sm="12">
-                  <div style={{marginTop:20}}>{moment(date).format('MMMM Do YYYY')}</div>
+                <div style={{marginTop:20,marginBottom:20}}>
+                  <table>
+                    <tr>
+                      <td valign="top" width="150">
+                        <div style={{marginRight:10}}>
+ 
+                      <Link 
+                        to={{ 
+                        pathname: '/admin/dashboard',
+                        state: {
+                          lang
+                        }
+                        }}>
+                        <Flag code={flag} width="150" />
+                      </Link>
+                      </div>
+                      </td>
+                      <td valign="top">
+                    <div>
+                    {moment(date).format('MMMM Do YYYY')}
+                  </div>
                   <a href={link} target="_blank" rel="noopener noreferrer">
-                    <div style={{color:'#3A7891'}}><h3>{title}</h3></div></a>
+                    <div style={{color:'#3A7891'}}>
+                      <h5>{title}</h5>
+                    </div>
+                  </a>
+                      </td>
+                    </tr>
+                  </table>
+                  </div>
+                  
                 </Col>
  
               </Row>

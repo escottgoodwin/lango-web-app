@@ -64,7 +64,6 @@ class VocabTest extends Component{
     const orig_lang = this.langSwitch(newQuestion['orig_lang'])
 
     this.setState({language, native_flag: flag_lang, native_lang, trans_flag: orig_lang.flag_lang, article_lang: newQuestion.orig_text})
-  
 
   }
 
@@ -168,7 +167,8 @@ class VocabTest extends Component{
 
           <Row >
             <Col >
-            <h5 style={{marginTop:20,marginBottom:20}}>What does <span style={{color:"#17a2b8"}}> {newQuestion} </span> mean in {language}?</h5>
+
+              <h5 style={{marginTop:20,marginBottom:20}}>What does <span style={{color:"#17a2b8"}}> {newQuestion} </span> mean in {language}?</h5>
  
             </Col>
           </Row>

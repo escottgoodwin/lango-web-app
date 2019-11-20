@@ -37,11 +37,13 @@ class ArtRecs extends Component{
 
               <Row >
                 <Col md="12">
+                <table>
                 { artRecsSorted.length>0 &&
                   artRecsSorted.map((a,i) => 
                     <LinkRecMain key={i} {...a} />
                   )
                 }
+                </table>
                 </Col>
               </Row>
             )

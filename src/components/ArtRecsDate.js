@@ -37,15 +37,19 @@ class ArtRecsDate extends Component{
         const { articleRecommendationsHistory } = data
         const artRecsSorted = sortDate(articleRecommendationsHistory)
         return (
+
           <>
             <Row>
-              <Col>
+              <Col >
                 <h5>{moment(searchDate).format('MMMM Do YYYY')}</h5>
               </Col>
             </Row>
             <Row>
-              <Col>
-              <h4> <Flag code={flag} height="24" /> {articleRecommendationsHistory.length} {language} Recommendations</h4>
+              <Col md="1">
+                <Flag code={flag} /> 
+              </Col>
+              <Col md="11">
+                <h5> {articleRecommendationsHistory.length} {language} Recommendations</h5>
               </Col>
             </Row>
 
@@ -56,6 +60,7 @@ class ArtRecsDate extends Component{
                 )}             
               </Col>
             </Row>
+            
           </>   
           )
         }}

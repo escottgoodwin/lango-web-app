@@ -25,7 +25,7 @@ class Vocab extends Component{
             if (error) return <div>{JSON.stringify(error)}</div>
 
             const { translations } = data
-                 
+
             return (                
 
               <div className="content">
@@ -40,12 +40,13 @@ class Vocab extends Component{
                 <hr/>
                 <Row >
                   <Col >
-                    <VocabTest vocab={translations}/>
+                    { translations.length>0 && <VocabTest vocab={translations} /> } 
                   </Col>
                 </Row>
 
               </Container>
               </div>
+
 
             )
           }}

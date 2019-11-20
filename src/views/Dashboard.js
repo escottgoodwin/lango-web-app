@@ -48,19 +48,25 @@ class Dashboard extends Component{
     }
   }
 
-  componentWillUnmount(){
-    this.setState({
-      lang:'',
-      language:'',
-      flag:''
-    })
+  componentDidMount(){
+
+    if (typeof this.props.location.state==='undefined'){
+      this.setState({lang:''})
+    } else {
+      const { lang } = this.props.location.state
+      
+      this.setState({lang})
+    }
+   
   }
+
+
 
     render(){
 
       const user = JSON.parse(localStorage.getItem('user'))
       const { lang, language, flag } = this.state
-
+      
   return(
 
         <div className="content">

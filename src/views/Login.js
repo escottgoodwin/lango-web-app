@@ -43,7 +43,11 @@ const processLogin = (uid,props) => {
 
       localStorage.setItem('auth_token',token) 
       localStorage.setItem('user',JSON.stringify(user))
-      props.history.push(`/admin/dashboard`)
+  
+      props.history.push({
+        pathname: `/admin/dashboard`,
+        state: { lang: '' }       
+      })
   })
 
 }
@@ -63,7 +67,10 @@ class Login extends Component {
     const { history } = this.props
     fire.auth().onAuthStateChanged(function(user) {
       if (user) {
-        history.push(`/admin/dashboard`)
+        history.push({
+          pathname: `/admin/dashboard`,
+          state: { lang: '' }       
+        })
       } else {
         
       }

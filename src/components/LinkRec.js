@@ -11,7 +11,7 @@ import { Mutation } from "react-apollo"
 import { ADD_PLAYLIST_MUTATION, REMOVE_PLAYLIST_MUTATION, LINK_RECS_QUERY } from '../ApolloQueries'
 
 const LinkRec = ({ lang, art_id, date, title, playlist }) => 
-
+    <>
     <Row>
       <Col md="1">
       {playlist ? 
@@ -66,6 +66,8 @@ const LinkRec = ({ lang, art_id, date, title, playlist }) =>
         </div>
         </Col>
     </Row>
+    <hr/>
+    </>
                      
 
 export default LinkRec

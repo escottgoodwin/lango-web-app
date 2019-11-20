@@ -12,6 +12,7 @@ import fire from '../firebase'
 import routes from "routes.js";
 import Article from "../views/Article";
 import ArtRecDate from "views/ArtRecDate";
+import LinkRecsEx from "views/LinkRecsEx";
 
 var ps;
 
@@ -103,6 +104,12 @@ class Dashboard extends React.Component {
               component={ArtRecDate}
               name='Recommendation History'
             />
+
+            <Route
+              path='/admin/linkrecex/:link'
+              component={LinkRecsEx}
+              name='Link Recommendation'
+            />  
 
           </Switch>
           <Footer fluid />

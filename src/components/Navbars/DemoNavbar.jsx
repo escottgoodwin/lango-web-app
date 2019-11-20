@@ -64,32 +64,24 @@ class Header extends React.Component {
     this.sidebarToggle.current.classList.toggle("toggled");
   }
 
-  signOut = (props) => {
+  signOut = async () => {
     firebase.auth().signOut().then(function() {
-      
+    const uid = localStorage.getItem('uid')
 
-    }).catch(function(error) {
-      console.log(error)
-    })
-  
-      const uid = localStorage.getItem('uid')
-    
-      const result = axios({
-        // Of course the url should be where your actual GraphQL server is.
+    axios({
         url: process.env.REACT_APP_GRAPHQL_SERVER,
         method: 'post',
         data: {
             query: LOGOUT_MUTATION,
             variables: { uid }
         }
-      }).then((result) => {
-          return result
-      })
-      .catch(function(error) {
-        console.log(error)
       })
 
-      console.log(result)
+      
+      
+    }).catch(function(error) {
+      console.log(error)
+    })
 
     this.props.history.push(`/login`)
   }
