@@ -1,5 +1,4 @@
 import React,{Component} from "react";
-
 import { withRouter } from 'react-router-dom'
 
 import {
@@ -27,8 +26,8 @@ class LinkRecsEx extends Component{
   }
 
   componentDidMount(){
-    const { link } = this.props.match.params
-    console.log(this.props.match.params)
+    const values = this.props.location.pathname
+    const link = values.replace("/admin/linkrecex/https:/", "https://");
     this.setState({link})
   }
 
@@ -58,8 +57,8 @@ class LinkRecsEx extends Component{
           <Row fluid='true'>
           <Col lg="12" md="12" sm="12">
 
-          <Input onChange={e => this.setState({ link: e.target.value })} placeholder="Link" />
-          
+            <Input onChange={e => this.setState({ link: e.target.value })} value={link} placeholder="Link" />
+           
           </Col>
             
         </Row>
