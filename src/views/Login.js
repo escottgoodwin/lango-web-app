@@ -21,6 +21,8 @@ import {
 import fire from '../firebase'
 
 import bkgd from "assets/img/loginmap1.jpg";
+import logo from "assets/img/langalogo.png";
+
 import { LOGIN_MUTATION } from '../ApolloQueries'
 
 var google = new firebase.auth.GoogleAuthProvider();
@@ -143,18 +145,13 @@ class Login extends Component {
 
     <Row>
     <Col md="12">
-    <div style={{marginTop:50}}>
-      <h5 style={{color:'#3A7891'}}>Langa Learn</h5>
-      </div>
-    </Col>
-    </Row>
-        
-    <Row>
-    <Col  md="12">
-      <h3 >Login</h3>
+
+        <img src={logo} alt="logo" />
+
     </Col>
     </Row>
 
+      <hr />
 
         <Row>
           <Col  md="4">
@@ -174,25 +171,29 @@ class Login extends Component {
           </Col>
         </Row>
         <div style={{margin:50}}>
-          <Form>
+          
             <Row>
                 <Col className="pl-1" md="12">
+                <Form>
                   <FormGroup>
                     <label >
                       Email address
                     </label>
                     <Input onChange={e => this.setState({ email: e.target.value })} placeholder="Email" type="email" />
                   </FormGroup>
+                  </Form>
                 </Col>
               </Row>
               <Row>
               <Col className="pl-1" md="12">
+              <Form>
                 <FormGroup controlid="formBasicPassword">
                   <label >
                     Password
                   </label>
                   <Input onChange={e => this.setState({ password: e.target.value })} placeholder="Password" type="password" />
                 </FormGroup>
+              </Form>
               </Col>
               </Row>
               <Row>
@@ -202,39 +203,38 @@ class Login extends Component {
                   </Button>
                   </Col>
               </Row>
-          </Form>
+         
+              <hr />
+              <Row>
+                <Col>
+                  <div style={{marginTop:10}}>
+                    <Link to="/sign_up"> 
+                      <h5 style={{color:'#3A7891'}}>Sign Up</h5>
+                    </Link>
+                  </div>
+                </Col>
 
-      <Row>
-        <Col>
-          <div style={{marginTop:30}}>
-            <Link to="/sign_up"> 
-              <h5>Sign Up</h5>  
-            </Link>
+                <Col>
+                  <div style={{marginTop:10}}>
+                    <Link to="/resend_password"> 
+                      <h5 style={{color:'#3A7891'}}> Reset Password </h5>  
+                    </Link>
+                  </div>
+                </Col>
+
+              </Row>
+
+                </div>
+              </CardBody>
+            </Card>
+
+              <div style={{height:50}}>
+        
+            </div>
           </div>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col>
-          <div style={{marginTop:10}}>
-            <Link to="/resend_password"> 
-              Reset Password 
-            </Link>
-          </div>
-        </Col>
-      </Row>
-
-        </div>
-      </CardBody>
-    </Card>
-
-    <div style={{height:50}}>
-    
-    </div>
+        </center>
       </div>
-    </center>
-  </div>
-</div>
+    </div>
 
   );
 }
