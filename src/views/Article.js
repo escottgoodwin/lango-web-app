@@ -241,8 +241,8 @@ class Article extends Component{
                 </Col>
 
                 <Col lg="2" md="2" sm="2">
-                  <h5 style={{marginTop:20,color:'#17a2b8'}}><b>Translations</b></h5>
-                  <hr /> 
+                  <h5 style={{color:'#17a2b8',marginTop:15}}><b>Translations</b></h5>
+                  <hr />
                 </Col>
 
               </Row>
