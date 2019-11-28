@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import moment from 'moment'
 import axios from 'axios'
+import {langSwitch} from '../util'
 import Flag from 'react-world-flags'
 import { Link } from 'react-router-dom'
 
@@ -37,47 +38,17 @@ class Article extends Component{
     originalText:'',
     hoverTrans:'',
     flag:'',
+    language:'',
     message:'',
     alert:false,
     errorOpen:false,
     playlist:false
   }
 
-  switchLang = lang => {
-    if (lang==='fr'){
-      this.setState({
-        lang:'fr',
-        language:'French',
-        flag:"FR"
-      })
-    }
-    if (lang==='de'){
-      this.setState({
-        lang:'de',
-        language:'German',
-        flag:"DE"
-      })
-    }
-    if (lang==='en'){
-      this.setState({
-        lang:'en',
-        language:'English',
-        flag:"GB"
-      })
-    }
-    if (lang==='es'){
-      this.setState({
-        lang:'es',
-        language:'Spanish',
-        flag:"ES"
-      })
-    }
-  }
-
   componentDidMount(){
     const { lang, playlist } = this.props.location.state
-    this.switchLang(lang)
-    this.setState({playlist})
+    const { language, flag } = langSwitch(lang)
+    this.setState({playlist, language, flag})
   }
 
   translateSel = async (lang,artId) => {
@@ -140,8 +111,7 @@ class Article extends Component{
     
   render(){
     const { art_id, lang } = this.props.location.state
-    const { flag, paused, rate, playing, originalText, hoverTrans, alert, message, errorOpen } = this.state
-    const { playlist } = this.state
+    const { playlist, flag, language, paused, rate, playing, originalText, hoverTrans, alert, message, errorOpen } = this.state
     return(
       <>
         <div className="content">
@@ -164,19 +134,19 @@ class Article extends Component{
                 <Col lg="12" md="12" sm="12">
                 <div style={{marginTop:20,marginBottom:20}}>
                   <table>
+                    <tbody>
                     <tr>
                       <td valign="top" width="150">
                         <div style={{marginRight:10}}>
- 
-                      <Link 
-                        to={{ 
-                        pathname: '/admin/dashboard',
-                        state: {
-                          lang
-                        }
-                        }}>
-                        <Flag code={flag} width="150" />
-                      </Link>
+                        <Link to={{
+                            pathname: `/admin/dashboard/${language.toLowerCase()}`,
+                            state: {
+                              lang
+                            }
+                          }}>
+                          <Flag code={flag} width="150" />
+                        </Link >
+                   
                       </div>
                       </td>
                       <td valign="top">
@@ -190,6 +160,7 @@ class Article extends Component{
                   </a>
                       </td>
                     </tr>
+                    </tbody>
                   </table>
                   </div>
                   

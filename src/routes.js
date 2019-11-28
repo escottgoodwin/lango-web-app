@@ -1,4 +1,4 @@
-import Dashboard from "views/Dashboard";
+import Dashboard from "views/Dashboard1";
 import LinkRecs from "views/LinkRecs";
 import UserUpdate from "views/UserUpdate";
 import ArtRecDate from "views/ArtRecDate";
