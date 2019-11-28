@@ -11,7 +11,7 @@ import {
 import { Mutation } from "react-apollo"
 import { REMOVE_PLAYLIST_MUTATION, PLAYLIST_QUERY } from '../ApolloQueries'
 
-const LinkRecPlaylist = ({ lang, art_id, date, title, playlist, searchDate }) => 
+const LinkRecPlaylist = ({ lang, art_id, date, title, playlist }) => 
   <>
     <Row>
       <Col md="1">
@@ -41,7 +41,8 @@ const LinkRecPlaylist = ({ lang, art_id, date, title, playlist, searchDate }) =>
               pathname: '/admin/article', 
               state: {
                 art_id: art_id,
-                lang
+                lang,
+                playlist
               }
               }}>
             <div style={{color:'#3A7891'}}><h5 >{title}</h5></div>

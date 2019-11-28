@@ -9,11 +9,15 @@ import {
   Col,
   Container,
   Button,
-  ButtonGroup
+  ButtonGroup,
+  Input,
+  Alert
 } from "reactstrap";
 
 import { Query, Mutation } from "react-apollo"
-import { ARTICLE_QUERY, TRANSLATION_MUTATION } from '../ApolloQueries'
+import { ARTICLE_QUERY, TRANSLATION_MUTATION, ADD_PLAYLIST_MUTATION, REMOVE_PLAYLIST_MUTATION } from '../ApolloQueries'
+
+import Error from './Error'
 
 var Highlight = require('react-highlighter');
 
@@ -32,7 +36,11 @@ class Article extends Component{
     rate:1,
     originalText:'',
     hoverTrans:'',
-    flag:''
+    flag:'',
+    message:'',
+    alert:false,
+    errorOpen:false,
+    playlist:false
   }
 
   switchLang = lang => {
@@ -67,8 +75,9 @@ class Article extends Component{
   }
 
   componentDidMount(){
-    const { lang } = this.props.location.state
+    const { lang, playlist } = this.props.location.state
     this.switchLang(lang)
+    this.setState({playlist})
   }
 
   translateSel = async (lang,artId) => {
@@ -131,8 +140,8 @@ class Article extends Component{
     
   render(){
     const { art_id, lang } = this.props.location.state
-    const { flag, paused, rate, playing, originalText, hoverTrans } = this.state
-
+    const { flag, paused, rate, playing, originalText, hoverTrans, alert, message, errorOpen } = this.state
+    const { playlist } = this.state
     return(
       <>
         <div className="content">
@@ -140,7 +149,7 @@ class Article extends Component{
         <Query query={ARTICLE_QUERY} variables={{ artId: art_id, lang }} >
             {({ loading, error, data }) => {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#F4F3EF'}} > </div>
-                if (error) return <div>{JSON.stringify(error)}</div>
+                if (error) return <Error {...error} />
 
                 const { article, title, link, date, translations } = data.article
               
@@ -207,7 +216,7 @@ class Article extends Component{
               </div>
             </Col>
 
-                <Col lg="9" md="9" sm="9">
+                <Col lg="4" md="4" sm="4">
                 <div style={{marginBottom:20}}> 
                 
                   <ButtonGroup>
@@ -223,9 +232,46 @@ class Article extends Component{
                     </div>
                 </Col>
 
+                <Col lg="3" md="3" sm="3">
+                   <Alert isOpen={alert} toggle={() => this.setState({alert:false})} color="success">{message}</Alert>
+                   <Alert isOpen={errorOpen} toggle={() => this.setState({errorOpen:false})} color="danger">{message}</Alert>
+                </Col>
+
+
                 <Col lg="2" md="2" sm="2">
-                <h5 style={{marginTop:20,color:'#17a2b8'}}><b>Translations</b></h5>
-                <hr /> 
+
+                  {playlist ? 
+
+                    <Mutation
+                      mutation={REMOVE_PLAYLIST_MUTATION}
+                      variables={{ art_id }}
+                      onError={error => this._error(error)}
+                      onCompleted={data => this._confirm(data.removeFromPlaylist.message)}
+                      >
+                      {mutation => (
+                        <Button onClick={mutation} color="success">Playlist</Button>
+                      )}
+                    </Mutation>
+                    
+                    :
+ 
+                    <Mutation
+                      mutation={ADD_PLAYLIST_MUTATION}
+                      variables={{ art_id }}
+                      onError={error => this._error(error)}
+                      onCompleted={data => this._confirm(data.addToPlaylist.message)}
+                      >
+                      {mutation => (
+                        <Button onClick={mutation}  outline color="success">Playlist</Button>
+                      )}
+                    </Mutation>
+                  }
+
+                </Col>
+
+                <Col lg="2" md="2" sm="2">
+                  <h5 style={{marginTop:20,color:'#17a2b8'}}><b>Translations</b></h5>
+                  <hr /> 
                 </Col>
 
               </Row>
@@ -253,44 +299,42 @@ class Article extends Component{
                 </Col>
 
                 <Col lg="2" md="2" sm="2">
-                <div style={{fontSize:14}}>Select/Highlight Text</div>
-                <div style={{height:50,fontSize:20,color:'#17a2b8'}}>{originalText}</div>
                 
-      
-                <div>
-                <Mutation
-                  mutation={TRANSLATION_MUTATION}
-                  variables={{ 
-                    originalText,
-                    artId: art_id,
-                    lang
-                  }}
-                  onError={error => this._error (error)}
-                  refetchQueries={() => { return [{
-                    query: ARTICLE_QUERY,
-                    variables: { artId: art_id, lang }}]
-                  }}
-                >
-                {mutation => (
+                  <Input  onChange={e => this.setState({ originalText: e.target.value })}  value={originalText} placeholder="Highlight Text"/>
 
-                  <Button outline color="info" onClick={mutation}>
-                    Translate
-                  </Button>
-                  )}
-              </Mutation>
+                  <div>
+                  <Mutation
+                    mutation={TRANSLATION_MUTATION}
+                    variables={{ 
+                      originalText,
+                      artId: art_id,
+                      lang
+                    }}
+                    onError={error => this._error (error)}
+                    refetchQueries={() => { return [{
+                      query: ARTICLE_QUERY,
+                      variables: { artId: art_id, lang }}]
+                    }}
+                  >
+                  {mutation => (
+
+                    <Button outline color="info" onClick={mutation}>
+                      Translate
+                    </Button>
+                    )}
+                </Mutation>
                  
-
                 </div>
 
-                  <div style={{height:500,overflow:'auto'}}>
-                  {translations.map((t,i) => 
-                    <div key={i} onMouseOver={() => this.setState({ hoverTrans: t.orig_text })} onMouseOut={() => this.setState({ hoverTrans: '' })}>
-                    <div style={{fontSize:18,color:"#17a2b8"}}>{t.orig_text}</div>
-                    <div style={{fontSize:18,color:"#28a745"}}>{t.trans_text}</div>
-                    <hr />
-                  </div>
-                  )}
-                  </div>
+                <div style={{height:500,overflow:'auto'}}>
+                {translations.map((t,i) => 
+                  <div key={i} onMouseOver={() => this.setState({ hoverTrans: t.orig_text })} onMouseOut={() => this.setState({ hoverTrans: '' })}>
+                  <div style={{fontSize:18,color:"#17a2b8"}}>{t.orig_text}</div>
+                  <div style={{fontSize:18,color:"#28a745"}}>{t.trans_text}</div>
+                  <hr />
+                </div>
+                )}
+              </div>
             </Col>
           </Row>
 
@@ -302,15 +346,25 @@ class Article extends Component{
       }}
       </Query>
           
-       
-        </div>
+    </div>
         
-</>
+    </>
     )
   }
 
   _error = async error => {
-    console.log(error)
+    this.setState({message: error.message, errorOpen:true})
+  }
+
+  _confirm = async message => {
+    const { playlist } = this.state
+    this.setState({message, alert:true, playlist: !playlist})
+    setTimeout(
+      function() {
+        this.setState({message:'', alert:false})
+      }.bind(this),
+      2000
+    )
 }
 
 }

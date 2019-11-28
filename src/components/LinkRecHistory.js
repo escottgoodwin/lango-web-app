@@ -61,7 +61,8 @@ const LinkRecHistory = ({ lang, art_id, date, title, playlist, searchDate }) =>
               pathname: '/admin/article', 
               state: {
                 art_id: art_id,
-                lang
+                lang,
+                playlist
               }
               }}>
             <div style={{color:'#3A7891',fontSize:18}}>{title}</div>

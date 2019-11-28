@@ -59,7 +59,8 @@ const LinkRecMain = ({ lang, art_id, date, title, playlist }) =>
               pathname: '/admin/article', 
               state: {
                 art_id: art_id,
-                lang
+                lang,
+                playlist
               }
               }}>
             <div style={{color:'#3A7891'}}><h5 >{title}</h5></div>
