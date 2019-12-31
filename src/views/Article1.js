@@ -1,5 +1,6 @@
 import React,{useState, useQuery, useMutation} from "react";
 import moment from 'moment'
+import ReactMarkdown from 'react-markdown'
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
 
 import {
@@ -144,9 +145,8 @@ function Article(){
               <Row>
                 <Col lg="10" md="10" sm="10">
 
-
                   <div onMouseUp={() => translateSel(lang,art_id,mutate)} >
-                    <h5>{article}</h5>
+                    <h5><ReactMarkdown source={article} /></h5>
                   </div>
 
                 </Col>

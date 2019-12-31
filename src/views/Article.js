@@ -4,6 +4,7 @@ import axios from 'axios'
 import {langSwitch} from '../util'
 import Flag from 'react-world-flags'
 import { Link } from 'react-router-dom'
+import ReactHtmlParser from 'react-html-parser';
 
 import {
   Row,
@@ -125,7 +126,7 @@ class Article extends Component{
               
             return (
 
-              <Container >
+        <Container >
 
         <Row >
           <Col md="12" >
@@ -240,6 +241,8 @@ class Article extends Component{
 
                 </Col>
 
+                
+
                 <Col lg="2" md="2" sm="2">
                   <h5 style={{color:'#17a2b8',marginTop:15}}><b>Translations</b></h5>
                   <hr />
@@ -256,11 +259,11 @@ class Article extends Component{
 
               <Row>
                 <Col lg="10" md="10" sm="10">
-                  
+
                   <div style={{height:600,overflow:'auto'}} onMouseUp={() => this.setState({originalText:window.getSelection().toString()})}>
                     <h5>
                     <Highlight search={hoverTrans} matchStyle={{color:'#17a2b8'}}>
-                      {article}
+                      { ReactHtmlParser(article) }
                     </Highlight>
                     </h5>
                   </div>
